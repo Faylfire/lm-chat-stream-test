@@ -6,6 +6,7 @@ const ChatComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const chatOutputRef = useRef(null);
   const abortControllerRef = useRef(null);
+  const api_key = "";
 
   useEffect(() => {
     if (chatOutputRef.current) {
@@ -19,7 +20,18 @@ const ChatComponent = () => {
     const userMessage = { role: "user", content: inputMessage };
     const userMessageWithContext = [...messages, userMessage];
     setMessages((prevMessages) => [...prevMessages, userMessage]);
+    //simulate a response if no api-key is found
     setInputMessage("");
+    if (api_key === "") {
+      const assistantMessage = {
+        role: "assistant",
+        content:
+          "There is no api_key loaded. This is only to simulate a response.",
+      };
+      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+      return;
+    }
+
     setIsLoading(true);
 
     // Create a new AbortController for this request

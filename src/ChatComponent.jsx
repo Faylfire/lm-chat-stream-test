@@ -7,6 +7,7 @@ const ChatComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const controllerRef = useRef(null);
   const chatOutputRef = useRef(null);
+  const api_key = "";
 
   const openai = new OpenAI({
     apiKey: "dummy-lmstudio-key",
@@ -26,6 +27,16 @@ const ChatComponent = () => {
     const userMessage = { role: "user", content: inputMessage };
     const userMessageWithContext = [...messages, userMessage];
     setMessages((prevMessages) => [...prevMessages, userMessage]);
+    //simulate a response if no api-key is found
+    if (api_key === "") {
+      const assistantMessage = {
+        role: "assistant",
+        content:
+          "There is no api_key loaded. This is only to simulate a response.",
+      };
+      setMessages((prevMessages) => [...prevMessages, assistantMessage]);
+      return;
+    }
     controllerRef.current = new AbortController();
     setInputMessage("");
     setIsLoading(true);
@@ -80,8 +91,8 @@ const ChatComponent = () => {
     console.log(controllerRef.current);
     if (controllerRef.current) {
       controllerRef.current.abort();
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
