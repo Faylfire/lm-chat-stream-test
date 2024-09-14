@@ -7,7 +7,7 @@ const ChatComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const controllerRef = useRef(null);
   const chatOutputRef = useRef(null);
-  const api_key = "";
+  const api_key = "a";
 
   const openai = new OpenAI({
     apiKey: "dummy-lmstudio-key",
