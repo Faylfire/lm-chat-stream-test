@@ -114,6 +114,11 @@ button:focus-visible {
   padding: 5px 10px;
 }
 
+#root {
+  z-index: 2; /* Ensure React components are above the image */
+  position: relative; /* Create a stacking context */
+}
+
 .wrapper{
   display: grid;
   & > * {
@@ -128,4 +133,8 @@ button:focus-visible {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+}
+
+img{
+  z-index:-1;
 }
